@@ -32,6 +32,16 @@ class EcomDev_ProductPageShipping_EstimateController extends Mage_Catalog_Produc
     public function estimateAction()
     {
         $product = $this->_initProduct();
+
+        if ($product->isConfigurable()) {
+            $attrValues = $this->getRequest()->getPost()['super_attribute'];
+            
+            $productByAttribute = Mage::getModel('catalog/product_type_configurable')
+                                ->getProductByAttributes($attrValues, $product)->getId();
+
+            $product = Mage::getModel('catalog/product')->load($productByAttribute);
+        }
+
         $this->loadLayout(false);
         $block = $this->getLayout()->getBlock('shipping.estimate.result');
         if ($block) {
