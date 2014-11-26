@@ -37,7 +37,7 @@ class EcomDev_ProductPageShipping_EstimateController extends Mage_Catalog_Produc
             $attrValues = $this->getRequest()->getPost()['super_attribute'];
             
             $productByAttribute = Mage::getModel('catalog/product_type_configurable')
-                                ->getProductByAttributes($attrValues, $product)->getId();
+                                ->getProductByAttributes($attrValues, $product)->getId(); 
 
             $product = Mage::getModel('catalog/product')->load($productByAttribute);
         }
